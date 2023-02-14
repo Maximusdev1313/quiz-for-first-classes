@@ -1,5 +1,51 @@
 import { store } from 'quasar/wrappers'
-import { createPinia } from 'pinia'
+import { createPinia, defineStore } from 'pinia'
+import axios from 'axios'
+
+export const useApiStore = defineStore('store', {
+  state: ()=>({
+    classes: [],
+    question: [],
+    storageItems: []
+
+  }),
+  actions:{
+    async GetClasses(){
+      try {
+        const res = await axios.get('http://quizforbeginner.pythonanywhere.com/class/')
+        this.classes = res.data
+        console.log(this.classes);
+      } catch (error) {
+        console.log(error.message);
+        
+      }
+    },
+    async GetQuestion(id, setStorage, getStorage ){
+      try {
+        const res = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
+        const api = res.data
+        this.question = [...api.quizzes]
+        setStorage(this.question)
+        getStorage()
+        console.log(this.question);
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+    SetItemsTostorage(item){
+        localStorage.setItem('question', JSON.stringify(item))
+        
+      
+    },
+    GetItemFromStorage(){
+      let item = localStorage.getItem('question')
+      this.storageItems =  JSON.parse(item)
+        console.log(this.storageItems, 'item');
+    }
+  }
+
+
+})
 
 /*
  * If not building with SSR mode, you can
