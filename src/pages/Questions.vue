@@ -17,7 +17,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="wrapper">
-    <q-card class="my-card q-mt-md" v-for="q in store.storageItems" :key="q">
+    <q-card class="my-card q-mt-md" v-for="q in store.GetItemFromStorage()" :key="q">
       <q-card-section class="bg-primary text-white">
         <div class="text-h6">
           {{ q.question_number }}. {{ q.question_title }}
@@ -47,7 +47,7 @@ onMounted(() => {
           <q-btn
             outline
             class="q-ml-md"
-            :color="variant.right || answerClicker ? 'primary' : 'red'"
+            :color="variant.right || answerClicker ? 'positive' : 'red'"
             size="lg"
             @click="answerClicker = false"
           >
