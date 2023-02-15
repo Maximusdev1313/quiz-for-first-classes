@@ -6,7 +6,7 @@ export const useApiStore = defineStore('store', {
   state: ()=>({
     classes: [],
     question: [],
-    storageItems: []
+    clicker: false
 
   }),
   actions:{
@@ -25,22 +25,23 @@ export const useApiStore = defineStore('store', {
         const res = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
         const api = res.data
         this.question = [...api.quizzes]
-        setStorage(this.question)
+        setStorage('question',this.question)
         getStorage()
         console.log(this.question);
+        console.log(getStorage());
       } catch (error) {
         console.log(error.message);
       }
     },
-    SetItemsTostorage(item){
-        localStorage.setItem('question', JSON.stringify(item))
+    SetItemsTostorage(itemName,item){
+        localStorage.setItem(itemName, JSON.stringify(item))
         
       
     },
     GetItemFromStorage(){
       let item = localStorage.getItem('question')
-      this.storageItems =  JSON.parse(item)
-        console.log(this.storageItems, 'item');
+      let parsedItem = JSON.parse(item)
+      return parsedItem
     }
   }
 
