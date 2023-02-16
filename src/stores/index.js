@@ -6,7 +6,9 @@ export const useApiStore = defineStore('store', {
   state: ()=>({
     classes: [],
     question: [],
-    clicker: false
+    clicker: false,
+    special_id_for_info: null,
+    special_id_for_title: null
 
   }),
   actions:{
@@ -26,7 +28,7 @@ export const useApiStore = defineStore('store', {
         const api = res.data
         this.question = [...api.quizzes]
         setStorage('question',this.question)
-        getStorage()
+        getStorage('question')
         console.log(this.question);
         console.log(getStorage());
       } catch (error) {
@@ -38,10 +40,18 @@ export const useApiStore = defineStore('store', {
         
       
     },
-    GetItemFromStorage(){
-      let item = localStorage.getItem('question')
-      let parsedItem = JSON.parse(item)
+    
+    GetItemFromStorage(item){
+      let items = localStorage.getItem(item)
+      let parsedItem = JSON.parse(items)
       return parsedItem
+    },
+    
+    createObject(entry, check) {
+      return {
+        entry: entry,
+        check: check,
+      };
     }
   }
 

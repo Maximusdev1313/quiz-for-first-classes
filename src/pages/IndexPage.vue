@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import inputForClassInfo from 'src/components/inputsForQuestions/inputForClassInfo.vue'
 import inpForQuestion from 'src/components/inputsForQuestions/inpForQuestion.vue'
+
 let questionTitle = ref('')
 
 
@@ -9,6 +10,7 @@ let questionTitle = ref('')
 
 <template>
   <q-page >
+
     <div class="row justify-around q-mt-md">
       <Suspense>
         <inputForClassInfo/>
