@@ -1,21 +1,26 @@
 <script setup>
-import {ref} from 'vue'
+import {onMounted, ref} from 'vue'
 import { useRoute } from 'vue-router';
 import {useApiStore} from 'src/stores'
 const route = useRoute()
 const store = useApiStore()
 let className = ref('')
 let teacherName = ref('')
+let prompt  = ref(true)
+    
+const getClassIdFromStorage = store.GetItemFromStorage('idForClass')
 
-let date = new Date().getTime();
-const random = Math.floor(Math.random() * 10000);
-let special_id = random.toString() + date + random.toString();
+onMounted(()=>{
+  if(getClassIdFromStorage !== null){
+    prompt.value = false
+    console.log('salom', getClassIdFromStorage);
+  }
+})
 
-let clicker = ref(false)
-const addInfo = ()=>{
-      store.SetItemsTostorage('idForInfo', special_id)
-      let infoId = store.GetItemFromStorage('idForInfo')
-     fetch("http://quizforbeginner.pythonanywhere.com/class/", {
+const addInfo = async () =>{
+      store.SetItemsTostorage('idForClass', store.getSpecialId())
+      let infoId = store.GetItemFromStorage('idForClass')
+     await fetch("http://quizforbeginner.pythonanywhere.com/class/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -26,15 +31,27 @@ const addInfo = ()=>{
       }),
 
     });
-    store.GetItemFromStorage('idForInfo')
-    console.log(store.GetItemFromStorage('idForInfo'));
-    // store.clicker = true
-    console.log(store.special_id_for_info);
   }
 
 </script>
 <template>
-    <div v-if="!store.clicker">
+  <q-dialog v-model="prompt" >
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-h6">Yangi sinf qo'shish</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input dense v-model="className" autofocus label="Sinf nomi" />
+          <q-input dense v-model="teacherName"  label="Ismingiz" @keyup.enter="prompt = false, addInfo()" />
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Yaratish" v-close-popup @click="addInfo"/>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <!-- <div v-if="!store.clicker">
         <div>
           Malumot
         </div>
@@ -43,7 +60,7 @@ const addInfo = ()=>{
       <q-input label="Ismingiz" v-model="teacherName"/>
       <q-btn class="q-mt-md" @click="addInfo">Bos</q-btn>
     </form>
-      </div>
+      </div> -->
 
 </template>
 <style>

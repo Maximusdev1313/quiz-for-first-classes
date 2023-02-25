@@ -3,6 +3,9 @@ import {ref} from 'vue'
 import inputForTitle from './inputForTitle.vue'
 import inpForCondition from './inpForCondition.vue'
 import inpForVariants from './inpForVariants.vue'
+import card from 'src/components/card.vue'
+import { useApiStore } from 'src/stores'
+const store = useApiStore()
 let model = ref('')
 let teal = ref(false)
 
@@ -13,6 +16,16 @@ let teal = ref(false)
     <div class="wrapper">
     <q-card class="my-card ">
       <q-card-section class="bg-accent  text-white">
+        <div class="q-my-sm">
+          <div class="text-subtitle row justify-end">
+            Savollar soni:
+            {{ store.question.length }}
+
+          </div>
+        </div>
+        <div >
+            Testning sharti:
+        </div>
         <input-for-title/>
         <div class="q-mt-md">
             Masala qismlari:
@@ -29,6 +42,8 @@ let teal = ref(false)
         <inp-for-variants/>
       </q-card-section>
     </q-card>
+    <card/>
+
   </div>
 
 </template>
@@ -42,6 +57,7 @@ let teal = ref(false)
 }
 .my-card {
   width: 100%;
+  margin-top: 5px;
   /* margin: 0 auto; */
 }
 

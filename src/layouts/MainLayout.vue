@@ -15,7 +15,9 @@
           Quasar App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>
+          <q-btn @click="createNewClass">Yangi sinf</q-btn>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -25,13 +27,10 @@
       bordered
     >
     <div class="title  q-ml-md q-mt-md">Sinflar</div>
-  <q-scroll-area
-    style="height: calc(100% - 150px); border-right: 1px solid #ddd"
-  >
+  
     <q-list padding>
       <q-item
         clickable
-        v-ripple
         :active="room.label"
         v-for="room in store.classes"
         :key="room"
@@ -46,7 +45,6 @@
         </q-item-section>
       </q-item>
     </q-list>
-  </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
@@ -62,6 +60,10 @@ import { useApiStore } from 'src/stores';
 
 const store = useApiStore()
 store.GetClasses()
+const createNewClass = () =>{
+  localStorage.removeItem('idForClass')
+  location.replace('/newclass')
+}
 
   
 

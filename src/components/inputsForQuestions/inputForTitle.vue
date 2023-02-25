@@ -4,15 +4,20 @@ import { useApiStore } from "src/stores";
 const store = useApiStore();
 let quiz = ref("");
 
-let date = new Date().getTime();
-const random = Math.floor(Math.random() * 10000);
-let special_id = random.toString() + date + random.toString();
 
 let idTitle = ref("");
 let parentId = ref("");
-const addInfo = (setFunction) => {
+let setGetItems = () => {
+  store.SetItemsTostorage("idForTitle", store.getSpecialId());
+
+  idTitle.value = store.GetItemFromStorage("idForTitle");
+  parentId.value = store.GetItemFromStorage("idForClass");
+
+};
+
+const addInfo = async(setFunction) => {
   setFunction();
-  fetch("http://quizforbeginner.pythonanywhere.com/quiz/", {
+  await fetch("http://quizforbeginner.pythonanywhere.com/quiz/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -21,27 +26,34 @@ const addInfo = (setFunction) => {
       quizzes: parentId.value,
     }),
   });
+  quiz.value = ''
   console.log("nimadur");
 };
-let setGetItems = () => {
-  store.SetItemsTostorage("idForTitle", special_id);
-  idTitle.value = store.GetItemFromStorage("idForTitle");
-  parentId.value = store.GetItemFromStorage("idForInfo");
 
-  console.log(idTitle);
-  console.log(parentId);
-};
 </script>
 
 <template>
   <div class="">
     <q-input
       v-model="quiz"
-      label="Savol"
-      @keydown.tab="addInfo(setGetItems)"
+      :label=" ` ${store.question.length + 1} - savol`"
+      @keydown.enter="addInfo(setGetItems)"
       label-color="primary"
       color="white"
       bg-color="white"
+      v-if="addInfo"
     />
+    <div class="row justify-end">
+      <q-btn class="q-mt-sm" size="sm" color="primary" @click="addInfo(setGetItems)">
+        <q-icon name="check" >
+
+        </q-icon>
+        <div>
+          Tayyor
+
+        </div>
+      </q-btn>
+
+    </div>
   </div>
 </template>

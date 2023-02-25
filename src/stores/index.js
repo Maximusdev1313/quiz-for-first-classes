@@ -7,8 +7,7 @@ export const useApiStore = defineStore('store', {
     classes: [],
     question: [],
     clicker: false,
-    special_id_for_info: null,
-    special_id_for_title: null
+    
 
   }),
   actions:{
@@ -22,15 +21,14 @@ export const useApiStore = defineStore('store', {
         
       }
     },
-    async GetQuestion(id, setStorage, getStorage ){
+    async GetQuestion(id,  ){
       try {
         const res = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
         const api = res.data
         this.question = [...api.quizzes]
-        setStorage('question',this.question)
-        getStorage('question')
+        // localStorage.removeItem('questions')
+        
         console.log(this.question);
-        console.log(getStorage());
       } catch (error) {
         console.log(error.message);
       }
@@ -52,7 +50,18 @@ export const useApiStore = defineStore('store', {
         entry: entry,
         check: check,
       };
-    }
+    },
+   addingObjectToArray(array, object){
+      array.push(object)
+      
+   },
+    getSpecialId(){
+      let date = new Date().getTime();
+      const random = Math.floor(Math.random() * 10000);
+      let special_id = random.toString() + date + random.toString();
+      return special_id
+    },
+    
   }
 
 

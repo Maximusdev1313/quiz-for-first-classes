@@ -1,27 +1,32 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useApiStore } from "src/stores";
 
 const store = useApiStore();
 let condition = ref("");
 let hide = ref(false);
-let parentId = ref('')
+let parentId = ref("");
 let conditionArray = ref([]);
 
-let clickForOpen = ref(false)
+let clickForOpen = ref(false);
 
-function addingItemToObject() {
-  let itemObject = store.createObject(condition.value, hide.value);
-  conditionArray.value.push(itemObject);
-  console.log(conditionArray.value);
-  condition.value = "";
-  hide.value = false;
+
+
+function addObject() {
+  let arr = store.addingObjectToArray(
+    conditionArray.value,
+    store.createObject(condition.value, hide.value)
+    );
+    console.log(conditionArray.value);
+
+  (condition.value = ""), (hide.value = false);
+  return arr;
 }
- parentId.value = store.GetItemFromStorage("idForTitle");
+const  addCondition = async () =>{
+  parentId.value = store.GetItemFromStorage("idForTitle");
 
-function addCondition() {
   for (let condition of conditionArray.value) {
-    fetch("http://quizforbeginner.pythonanywhere.com/condition/", {
+    await fetch("http://quizforbeginner.pythonanywhere.com/condition/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -30,9 +35,41 @@ function addCondition() {
         hidden: condition.check,
       }),
     });
+    console.log(condition.entry,'===entry');
   }
-  clickForOpen.value = true
+  console.log("parent", parentId.value);
+  console.log(conditionArray.value);
+  clickForOpen.value = true;
 }
+watch(() => store.clicker, () => {
+  conditionArray.value = []
+  clickForOpen.value = false
+})
+// const post = async (url, params) => {
+//     const response = await fetch(url, {
+//         method: 'POST',
+//         body: JSON.stringify(params),
+//         headers: {
+//             'Content-type': 'application/json; charset=UTF-8',
+//         }
+//     })
+
+//     const data = await response.json()
+
+//     return data
+// }
+
+// // Then use it like so with async/await:
+// (async (bir, ikki, uch) => {
+//     const data = await post('https://jsonplaceholder.typicode.com/posts', {
+//         bir: 'This will be the title',
+//         ikki: 'Setting the body property',
+//         uch: 1
+//     })
+
+//     console.log(data)
+// })()
+
 </script>
 
 <template>
@@ -50,7 +87,7 @@ function addCondition() {
           <q-icon name="question_mark" color="primary" size="sm" />
         </div>
       </div>
-      <div v-if="!clickForOpen">
+      <div v-if="!clickForOpen ">
         <div>
           <q-input
             v-model="condition"
@@ -58,26 +95,29 @@ function addCondition() {
             placeholder="Tasdiqlash uchun enterni bosing"
             color="white"
             bg-color="white"
-            @keypress.enter="addingItemToObject"
+            @keypress.enter="addObject"
           />
         </div>
         <div class="row justify-around items-center">
           <q-checkbox v-model="hide" label="Berkitish" />
           <q-btn
-            @click="addingItemToObject"
+            @click="addObject"
             color="primary"
             icon="add"
             size="sm"
             class="q-mx-md"
           ></q-btn>
-          <q-btn
-            @click="addCondition"
-            color="primary"
-            icon="check"
-            size="sm">Tayyor</q-btn
+          <q-btn @click="addCondition" color="primary" icon="check" size="sm"
+            >Tayyor</q-btn
           >
         </div>
       </div>
+      
     </div>
+    <div class="row justify-end" v-if="clickForOpen">
+        <q-btn @click="addCondition" color="primary" icon="check" size="sm"
+            >Tayyor</q-btn
+          >
+      </div>
   </div>
 </template>
