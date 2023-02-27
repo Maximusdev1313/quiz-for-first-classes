@@ -24,7 +24,9 @@ let answerClicker = ref(true);
       console.log(a, 'hidd');
       let b  =  a.forEach((i)=>{
         i.hidden = false
-        console.log(i.hidden);
+        // console.log(i.hidden);
+        // i.worth.style.color = 'red'
+        // console.log(i.worth.style);
       })
       
     } 
@@ -96,10 +98,13 @@ let answerClicker = ref(true);
 ol.list{
     margin: 0;
     padding: 4px;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+
 }
 ol.list li{
-  box-sizing: border-box;
-    display: inline;
+  
     margin: 15px;
 
     border: 1px solid #000;

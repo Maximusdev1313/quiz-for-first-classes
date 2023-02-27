@@ -15,22 +15,22 @@ export const useApiStore = defineStore('store', {
       try {
         const res = await axios.get('http://quizforbeginner.pythonanywhere.com/class/')
         this.classes = res.data
-        console.log(this.classes);
       } catch (error) {
         console.log(error.message);
         
       }
     },
-    async GetQuestion(id,  ){
+    async GetApiById( id ) {
+      
       try {
-        const res = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
-        const api = res.data
-        this.question = [...api.quizzes]
-        // localStorage.removeItem('questions')
-        
+        const Fetch_Api = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
+        const category = Fetch_Api.data
+        this.question =  category.quizzes
         console.log(this.question);
+        return this.question
       } catch (error) {
-        console.log(error.message);
+        console.log( 'error', error.message);
+
       }
     },
     SetItemsTostorage(itemName,item){
@@ -62,6 +62,9 @@ export const useApiStore = defineStore('store', {
       return special_id
     },
     
+  },
+  getters:{
+
   }
 
 

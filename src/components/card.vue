@@ -49,7 +49,7 @@ onMounted(()=>{
             <div class="q-px-xl">
                 <ol type="A" class="list">
                     <li v-for="variant in q.variants" :key="variant"> {{ variant.variant_answer }}</li>
-                </ol>
+                </ol> 
             
           </div>
         </div>
@@ -64,6 +64,8 @@ onMounted(()=>{
 ol.list{
     margin: 0;
     padding: 4px;
+    list-style-type: upper-latin;
+
 }
 ol.list li{
     display: inline;

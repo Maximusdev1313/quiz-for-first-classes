@@ -11,8 +11,8 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Quasar App
+        <q-toolbar-title class="text-weight-bold">
+          Quiz
         </q-toolbar-title>
 
         <div>
@@ -26,15 +26,15 @@
       show-if-above
       bordered
     >
-    <div class="title  q-ml-md q-mt-md">Sinflar</div>
+    <div class="text-h6 text-weight-bold  q-ml-md q-mt-md">Sinflar</div>
   
-    <q-list padding>
+    <q-list>
       <q-item
         clickable
         :active="room.label"
         v-for="room in store.classes"
         :key="room"
-        :to="'/class/' + room.id"
+        :href="'/class/' + room.id"
       >
         <!-- <q-item-section avatar>
           <q-icon :name="room.icon" />
