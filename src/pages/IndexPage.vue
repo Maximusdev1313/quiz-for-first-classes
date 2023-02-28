@@ -8,7 +8,7 @@
         Istalgan sinflar uchun oraliq va nazorat testlarini osongina tayyorlang va barchasini saqlab qo'ying. 
         
       </p>
-      <q-btn color="primary" to="/newclass">bosib kor</q-btn>
+      <q-btn color="primary" to="/newclass">Boshlash</q-btn>
     </div>
     <div class="img">
 
