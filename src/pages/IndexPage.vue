@@ -1,3 +1,10 @@
+<script setup>
+const createNewClass = () =>{
+  localStorage.removeItem('idForClass')
+  location.replace('/newclass')
+}
+
+</script>
 <template >
   <div class="wrapper row justify-around items-center ">
     <div class="content ">
@@ -8,14 +15,13 @@
         Istalgan sinflar uchun oraliq va nazorat testlarini osongina tayyorlang va barchasini saqlab qo'ying. 
         
       </p>
-      <q-btn color="primary" to="/newclass">Boshlash</q-btn>
+      <q-btn color="primary" @click="createNewClass">Boshlash</q-btn>
     </div>
-    <div class="img">
-
-    </div>
+    <div class="img"></div>
   </div>
 </template>
 <style scoped>
+
 .wrapper{
   width: 100%;
   height: 90vh;

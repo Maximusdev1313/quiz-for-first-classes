@@ -7,6 +7,7 @@ let quiz = ref("");
 
 let idTitle = ref("");
 let parentId = ref("");
+let clicker = ref(false)
 let setGetItems = () => {
   store.SetItemsTostorage("idForTitle", store.getSpecialId());
 
@@ -26,7 +27,9 @@ const addInfo = async(setFunction) => {
       quizzes: parentId.value,
     }),
   });
-  quiz.value = ''
+  clicker.value = true
+  
+
   console.log("nimadur");
 };
 
@@ -34,6 +37,7 @@ const addInfo = async(setFunction) => {
 
 <template>
   <div class="">
+    
     <q-input
       v-model="quiz"
       :label=" ` ${store.question.length + 1} - savol`"
@@ -41,11 +45,10 @@ const addInfo = async(setFunction) => {
       label-color="primary"
       color="white"
       bg-color="white"
-      v-if="addInfo"
     />
     <div class="row justify-end">
       <q-btn class="q-mt-sm" size="sm" color="primary" @click="addInfo(setGetItems)">
-        <q-icon name="check" >
+        <q-icon name="check" v-if="clicker">
 
         </q-icon>
         <div>

@@ -37,6 +37,8 @@ const addVariants = async () => {
   // clickForOpen.value = true;
   store.clicker = true;
   variantsArray.value = [];
+  store.GetClasses()
+
 };
 </script>
 

@@ -20,7 +20,7 @@ export const useApiStore = defineStore('store', {
         
       }
     },
-    async GetApiById( id ) {
+    async GetQuestion( id ) {
       
       try {
         const Fetch_Api = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)

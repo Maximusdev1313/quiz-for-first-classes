@@ -107,8 +107,12 @@ watch(() => store.clicker, () => {
             size="sm"
             class="q-mx-md"
           ></q-btn>
-          <q-btn @click="addCondition" color="primary" icon="check" size="sm"
-            >Tayyor</q-btn
+          <q-btn @click="addCondition" color="primary"  size="sm"
+            >
+            <q-icon name="check" v-if="clickForOpen">
+              
+            </q-icon>
+            Tayyor</q-btn
           >
         </div>
       </div>
