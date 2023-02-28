@@ -4,15 +4,10 @@ import {useApiStore} from 'src/stores'
 const store = useApiStore()
 let id  = store.GetItemFromStorage('idForClass')
 
-// const GetQuestions = () => {
-//     if(id !== null){
-//         store.GetQuestion(id)
-//     }
-  
-// }
+
 onMounted(()=>{
   if(id){
-    store.GetQuestion(id)
+    store.GetQuestionFor(id)
   }
 })
 
@@ -20,7 +15,7 @@ onMounted(()=>{
 </script>
 
 <template>
-        <q-card class="my-card q-mt-md" v-for="(q, index) in store.question" :key="index">
+        <q-card class="my-card q-mt-md" v-for="(q, index) in store.questions" :key="index">
       <q-card-section class="bg-primary text-white">
         <div class="text-h6">
           {{ index + 1 }}. {{ q.question_title }}
@@ -64,13 +59,17 @@ onMounted(()=>{
 ol.list{
     margin: 0;
     padding: 4px;
-    list-style-type: upper-latin;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
 
 }
 ol.list li{
-    display: inline;
-    margin-right: 5px;
+  
+    margin: 15px;
+
     border: 1px solid #000;
-    padding: 3px;
+    padding: 10px 15px;
+
 }
 </style>

@@ -8,19 +8,22 @@ const store = useApiStore();
 let questions = ref([])
 let hiddens = ref([])
 let answerClicker = ref(true);
+onMounted(()=>{
+  store.GetQuestion(route.params.id)
+})
 
-   (async( ) =>{
-      try {
-        const res = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${route.params.id}`)
-        const api = res.data
-        questions.value = [...api.quizzes]
-        // localStorage.removeItem('questions')
-      } catch (error) {
-        console.log(error.message);
-      }
-    })()
+  //  (async( ) =>{
+  //     try {
+  //       const res = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${route.params.id}`)
+  //       const api = res.data
+  //       questions.value = [...api.quizzes]
+  //       // localStorage.removeItem('questions')
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   })()
    const  change = (i) => {
-      let a = questions.value[i].condition
+      let a = store.question[i].condition
       console.log(a, 'hidd');
       let b  =  a.forEach((i)=>{
         i.hidden = false
@@ -33,8 +36,8 @@ let answerClicker = ref(true);
 
 </script>
 <template>
-  <div class="wrapper">
-    <q-card class="my-card q-mt-md" v-for=" ( q, index) in  questions" :key="index">
+  <div class="wrapper" v-if="store.question.length">
+    <q-card class="my-card q-mt-md" v-for=" ( q, index) in  store.question" :key="index">
       <q-card-section class="bg-primary text-white">
         <div class="text-h6">
           {{ index + 1 }}. {{ q.question_title }}

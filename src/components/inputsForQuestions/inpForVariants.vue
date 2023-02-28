@@ -13,7 +13,6 @@ let addObject = () => {
   store.addingObjectToArray(variantsArray.value, objects);
   variant.value = "";
   trueOrFalseAnswer.value = false;
-  console.log(variantsArray.value);
 };
 const addVariants = async () => {
   parentId.value = store.GetItemFromStorage("idForTitle");

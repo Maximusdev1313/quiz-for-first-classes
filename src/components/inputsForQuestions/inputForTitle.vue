@@ -30,7 +30,6 @@ const addInfo = async(setFunction) => {
   clicker.value = true
   
 
-  console.log("nimadur");
 };
 
 </script>

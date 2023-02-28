@@ -17,7 +17,6 @@ function addObject() {
     conditionArray.value,
     store.createObject(condition.value, hide.value)
     );
-    console.log(conditionArray.value);
 
   (condition.value = ""), (hide.value = false);
   return arr;
@@ -35,40 +34,14 @@ const  addCondition = async () =>{
         hidden: condition.check,
       }),
     });
-    console.log(condition.entry,'===entry');
   }
-  console.log("parent", parentId.value);
-  console.log(conditionArray.value);
+ 
   clickForOpen.value = true;
 }
 watch(() => store.clicker, () => {
   conditionArray.value = []
   clickForOpen.value = false
 })
-// const post = async (url, params) => {
-//     const response = await fetch(url, {
-//         method: 'POST',
-//         body: JSON.stringify(params),
-//         headers: {
-//             'Content-type': 'application/json; charset=UTF-8',
-//         }
-//     })
-
-//     const data = await response.json()
-
-//     return data
-// }
-
-// // Then use it like so with async/await:
-// (async (bir, ikki, uch) => {
-//     const data = await post('https://jsonplaceholder.typicode.com/posts', {
-//         bir: 'This will be the title',
-//         ikki: 'Setting the body property',
-//         uch: 1
-//     })
-
-//     console.log(data)
-// })()
 
 </script>
 

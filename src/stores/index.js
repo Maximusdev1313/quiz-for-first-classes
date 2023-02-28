@@ -6,6 +6,7 @@ export const useApiStore = defineStore('store', {
   state: ()=>({
     classes: [],
     question: [],
+    questions: [],
     clicker: false,
     
 
@@ -23,11 +24,20 @@ export const useApiStore = defineStore('store', {
     async GetQuestion( id ) {
       
       try {
-        const Fetch_Api = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
-        const category = Fetch_Api.data
+        let Fetch_Api = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
+        let  category = Fetch_Api.data
         this.question =  category.quizzes
-        console.log(this.question);
-        return this.question
+      } catch (error) {
+        console.log( 'error', error.message);
+
+      }
+    },
+    async GetQuestionFor( id ) {
+      
+      try {
+        let Fetch_Api = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
+        let  category = Fetch_Api.data
+        this.questions =  category.quizzes
       } catch (error) {
         console.log( 'error', error.message);
 
