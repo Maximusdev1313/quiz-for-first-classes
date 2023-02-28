@@ -45,6 +45,9 @@
         </q-item-section>
       </q-item>
     </q-list>
+    <div class="absolute-bottom text-grey">
+      &copy; Muxlisa Saidolimova & MaximusTeam
+    </div>
     </q-drawer>
 
     <q-page-container>
