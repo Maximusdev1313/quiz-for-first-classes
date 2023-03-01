@@ -39,6 +39,7 @@ const  addCondition = async () =>{
   clickForOpen.value = true;
 }
 watch(() => store.clicker, () => {
+  condition.value = ''
   conditionArray.value = []
   clickForOpen.value = false
 })
