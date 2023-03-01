@@ -7,7 +7,7 @@ let id  = store.GetItemFromStorage('idForClass')
 
 onMounted(()=>{
   if(id){
-    store.GetQuestionFor(id)
+    store.GetQuestion(id)
   }
 })
 
@@ -15,7 +15,10 @@ onMounted(()=>{
 </script>
 
 <template>
-        <q-card class="my-card q-mt-md" v-for="(q, index) in store.questions" :key="index">
+      <div class="text-h6 q-mt-md">
+        Savollar:
+      </div>
+        <q-card class="my-card q-mt-md" v-for="(q, index) in store.question" :key="index">
       <q-card-section class="bg-primary text-white">
         <div class="text-h6">
           {{ index + 1 }}. {{ q.question_title }}

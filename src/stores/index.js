@@ -32,17 +32,7 @@ export const useApiStore = defineStore('store', {
 
       }
     },
-    async GetQuestionFor( id ) {
-      
-      try {
-        let Fetch_Api = await axios.get(`http://quizforbeginner.pythonanywhere.com/class/${id}`)
-        let  category = Fetch_Api.data
-        this.questions =  category.quizzes
-      } catch (error) {
-        console.log( 'error', error.message);
-
-      }
-    },
+   
     SetItemsTostorage(itemName,item){
         localStorage.setItem(itemName, JSON.stringify(item))
         
