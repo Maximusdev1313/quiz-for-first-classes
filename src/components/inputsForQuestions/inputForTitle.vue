@@ -31,6 +31,10 @@ const addInfo = async(setFunction) => {
   
 
 };
+watch(() => store.clicker, () => {
+  quiz.value = ''
+  clicker.value = false
+})
 
 </script>
 
@@ -47,7 +51,7 @@ const addInfo = async(setFunction) => {
     />
     <div class="row justify-end">
       <q-btn class="q-mt-sm" size="sm" color="primary" @click="addInfo(setGetItems)">
-        <q-icon name="check" v-if="clicker">
+        <q-icon name="check" v-if="clicker ">
 
         </q-icon>
         <div>
