@@ -18,6 +18,9 @@ onMounted(()=>{
       <div class="text-h6 q-mt-md">
         Savollar:
       </div>
+      <div v-if="!store.question.length" >
+        Savollar mavjud emas!
+      </div>
         <q-card class="my-card q-mt-md" v-for="(q, index) in store.question" :key="index">
       <q-card-section class="bg-primary text-white">
         <div class="text-h6">
